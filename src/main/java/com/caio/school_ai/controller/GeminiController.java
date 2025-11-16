@@ -38,4 +38,13 @@ public class GeminiController {
 
     }
 
+    @PostMapping(value = "/questoes-pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String gerarQuestoesPDF(@RequestParam("file") MultipartFile file) throws Exception{
+
+        byte[] pdfBytes = file.getBytes();
+
+        return geminiService.gerarQuestoesPDF(pdfBytes);
+
+    }
+
 }

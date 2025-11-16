@@ -74,6 +74,44 @@ public class GeminiService {
         Objetivo Final:
         Retornar um mapa mental completo, organizado, profundo e hierárquico, representando toda a lógica, capítulos e seções do PDF.
     """;
+    private static final String PROMPT_PDF_QUESTOES = """
+        Você é um modelo avançado, especialista em leitura profunda, interpretação e elaboração de questões baseadas em documentos extensos. Você receberá um PDF como entrada.
+        Sua tarefa é:
+        Ler completamente o PDF
+        Identificar os temas principais e secundários
+        Criar 10 questões de alta qualidade baseadas fielmente no conteúdo do PDF
+        Criar também as respostas completas, corretas e totalmente fundamentadas no PDF
+        Regras obrigatórias:
+        A resposta deve ser retornada EXCLUSIVAMENTE em JSON válido, exatamente neste formato:
+        {
+          \\\\\\"content\\\\\\": [
+            {
+              \\\\\\"questao\\\\\\": {
+                \\\\\\"pergunta\\\\\\": \\\\\\"Pergunta baseada no PDF\\\\\\",
+                \\\\\\"resposta\\\\\\": \\\\\\"Resposta fiel ao conteúdo do PDF, clara e completa\\\\\\"
+              }
+            }
+          ]
+        }
+        Regras rígidas da estrutura:
+        - O array content deve conter exatamente **10 objetos**, cada um representando uma questão.
+        - Cada objeto deve ter SOMENTE o campo questao, contendo um objeto com:
+          - pergunta
+          - resposta
+        - Não adicionar nenhum campo além dos especificados.
+        - Não modificar os nomes das chaves.
+        - Não adicionar explicações, comentários, análises, mensagens de sistema ou qualquer texto fora do JSON.
+        - Não inventar conteúdo. Toda pergunta e resposta deve ser 100% fiel ao que está no PDF.
+        - Não criar questões genéricas: cada pergunta deve emergir diretamente do conteúdo real do documento.
+        - A resposta deve ser clara, objetiva e totalmente alinhada ao PDF.
+        Qualidade esperada:
+        - Questões muito bem elaboradas
+        - Respostas completas e corretas
+        - Nada de ambiguidades ou “achismos”
+        - Não resumir o PDF inteiro, apenas criar perguntas baseadas em partes relevantes do conteúdo
+        - Estrutura JSON deve ser perfeita, sem erros
+    """;
+
 
 
 
@@ -175,6 +213,47 @@ public class GeminiService {
               }]
             }
         """.formatted(PROMPT_PDF_MAPA_MENTAL, pdfBase64);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl + "?key=" + apiKey))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        String resposta = response.body();
+
+        String jsonLimpo = resposta
+                .replace("```json", "")
+                .replace("```", "")
+                .trim();
+
+        return jsonLimpo;
+
+    }
+
+    //METODO PARA GERAR QUESTOES
+    public String gerarQuestoesPDF(byte[] pdfBytes) throws Exception{
+
+        String pdfBase64 = java.util.Base64.getEncoder().encodeToString(pdfBytes);
+
+        String body = """
+            {
+              "contents": [{
+                "parts": [
+                  { "text": "%s" },
+                  {
+                    "inlineData": {
+                      "mimeType": "application/pdf",
+                      "data": "%s"
+                    }
+                  }
+                ]
+              }]
+            }
+        """.formatted(PROMPT_PDF_QUESTOES, pdfBase64);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl + "?key=" + apiKey))
