@@ -112,6 +112,65 @@ public class GeminiService {
         - Estrutura JSON deve ser perfeita, sem erros
     """;
 
+    private static final String PROMPT_PDF_SUGESTOES = """
+           
+        Você é um modelo especialista em leitura profunda, compreensão de conteúdo técnico e recomendação de materiais de estudo. Receberá um PDF como entrada.
+        Sua tarefa é:
+        - Ler e entender completamente o tema principal e secundário do PDF
+        - Identificar o nível de complexidade do conteúdo
+        - Recomendar materiais externos de alta qualidade relacionados ao mesmo assunto, incluindo:
+            • Livros
+            • Sites confiáveis
+            • Documentações oficiais
+            • Cursos gratuitos e pagos
+            • Vídeos e playlists
+            • Ferramentas úteis
+        - Todas as recomendações devem estar **diretamente relacionadas** ao tema do PDF
+        Regras obrigatórias:
+        A resposta deve ser retornada EXCLUSIVAMENTE em JSON válido, seguindo exatamente esta estrutura:
+        {
+          \\\\\\"content\\\\\\": {
+            \\\\\\"recomendacoes\\\\\\": {
+              \\\\\\"livros\\\\\\": [
+                \\\\\\"Livro 1\\\\\\",
+                \\\\\\"Livro 2\\\\\\"
+              ],
+              \\\\\\"sites\\\\\\": [
+                \\\\\\"Site 1\\\\\\",
+                \\\\\\"Site 2\\\\\\"
+              ],
+              \\\\\\"documentacoes\\\\\\": [
+                \\\\\\"Documentação 1\\\\\\",
+                \\\\\\"Documentação 2\\\\\\"
+              ],
+              \\\\\\"cursos\\\\\\": [
+                \\\\\\"Curso 1\\\\\\",
+                \\\\\\"Curso 2\\\\\\"
+              ],
+              \\\\\\"videos\\\\\\": [
+                \\\\\\"Vídeo 1\\\\\\",
+                \\\\\\"Vídeo 2\\\\\\"
+              ],
+              \\\\\\"ferramentas\\\\\\": [
+                \\\\\\"Ferramenta 1\\\\\\",
+                \\\\\\"Ferramenta 2\\\\\\"
+              ]
+            }
+          }
+        }
+        Regras rígidas:
+        - Não gerar qualquer texto fora do JSON.
+        - Não adicionar comentários, explicações, avisos ou mensagens auxiliares.
+        - Todas as recomendações devem ser 100% coerentes com o assunto do PDF.
+        - Não inventar ferramentas irreais ou livros inexistentes.
+        - Evite sugestões genéricas — tudo deve estar alinhado com o conteúdo lido.
+        - Se o PDF for técnico, sugerir materiais técnicos. Se for científico, sugerir materiais científicos. Se for introdutório, sugerir materiais introdutórios.
+        - Não alterar o formato fornecido acima.
+        - O JSON deve ser válido, bem formatado e sem erros.
+        Objetivo final:
+        Entregar uma lista completa, confiável e relevante de materiais para aprofundar o estudo do assunto tratado no PDF.
+    """;
+
 
 
 
