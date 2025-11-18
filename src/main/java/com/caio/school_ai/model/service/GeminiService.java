@@ -1,5 +1,6 @@
 package com.caio.school_ai.model.service;
 
+import com.caio.school_ai.util.CleanJSON;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -121,11 +122,11 @@ public class GeminiService {
         - Recomendar materiais externos de alta qualidade relacionados ao mesmo assunto, incluindo:
             • Livros
             • Sites confiáveis
-            • Documentações oficiais
+            • Documentações oficiais (CASO TENHA E ACHE BOM TER)
             • Cursos gratuitos e pagos
-            • Vídeos e playlists
-            • Ferramentas úteis
-        - Todas as recomendações devem estar **diretamente relacionadas** ao tema do PDF
+            • Vídeos e playlists (CASO TENHA E ACHE BOM TER)
+            • Ferramentas úteis (CASO TENHA E ACHE BOM TER)
+        - Todas as recomendações devem estar diretamente relacionadas ao tema do PDF
         Regras obrigatórias:
         A resposta deve ser retornada EXCLUSIVAMENTE em JSON válido, seguindo exatamente esta estrutura:
         {
@@ -243,12 +244,7 @@ public class GeminiService {
 
         String resposta = response.body();
 
-        String jsonLimpo = resposta
-                .replace("```json", "")
-                .replace("```", "")
-                .trim();
-
-        return jsonLimpo;
+        return CleanJSON.jsonLimpo(resposta);
 
     }
 
@@ -284,12 +280,7 @@ public class GeminiService {
 
         String resposta = response.body();
 
-        String jsonLimpo = resposta
-                .replace("```json", "")
-                .replace("```", "")
-                .trim();
-
-        return jsonLimpo;
+        return CleanJSON.jsonLimpo(resposta);
 
     }
 
@@ -325,15 +316,47 @@ public class GeminiService {
 
         String resposta = response.body();
 
-        String jsonLimpo = resposta
-                .replace("```json", "")
-                .replace("```", "")
-                .trim();
-
-        return jsonLimpo;
+        return CleanJSON.jsonLimpo(resposta);
 
     }
 
+    //METODO PARA GERAR SUGESTOES DE ESTUDO
+    public String gerarSugestoesPDF(byte[] pdfBytes) throws Exception{
+
+        String pdfBase64 = java.util.Base64.getEncoder().encodeToString(pdfBytes);
+
+        String body = """
+            {
+              "contents": [{
+                "parts": [
+                  { "text": "%s" },
+                  {
+                    "inlineData": {
+                      "mimeType": "application/pdf",
+                      "data": "%s"
+                    }
+                  }
+                ]
+              }]
+            }
+        """.formatted(PROMPT_PDF_SUGESTOES, pdfBase64);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl + "?key=" + apiKey))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+
+        HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        String resposta = response.body();
+
+        return CleanJSON.jsonLimpo(resposta);
+
+
+
+    }
 
 
 }

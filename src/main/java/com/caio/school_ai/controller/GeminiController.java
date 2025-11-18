@@ -47,4 +47,13 @@ public class GeminiController {
 
     }
 
+    @PostMapping(value = "/sugestoes-pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String gerarSugestoesPDF(@RequestParam("file") MultipartFile file) throws Exception{
+
+        byte[] pdfBytes = file.getBytes();
+
+        return geminiService.gerarSugestoesPDF(pdfBytes);
+
+    }
+
 }
