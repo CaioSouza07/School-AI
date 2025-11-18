@@ -1,9 +1,8 @@
 package com.caio.school_ai.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Agrupamento {
@@ -12,5 +11,12 @@ public class Agrupamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name="pasta_id", nullable = false)
+    private Pasta pasta;
+
+    @OneToMany(mappedBy = "agrupamento")
+    private List<Secao> listaSecoes;
 
 }

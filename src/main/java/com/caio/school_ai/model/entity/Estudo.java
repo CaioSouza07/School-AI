@@ -1,8 +1,6 @@
 package com.caio.school_ai.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity
 public class Estudo {
@@ -15,5 +13,8 @@ public class Estudo {
     private String questoes;
     private String sugestoes;
 
+    @ManyToOne
+    @JoinColumn(name = "secao_id", nullable = false)
+    private Secao secao;
 
 }
