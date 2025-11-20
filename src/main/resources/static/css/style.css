@@ -7,6 +7,7 @@
 
 body {
     background-image: linear-gradient(to bottom, #2A2A2A, black );
+    font-family: "Poppins", sans-serif;
     width: 100vw;
     height: 100vh;
 }
@@ -30,7 +31,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: black;
-  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 71pt;
@@ -38,7 +38,6 @@ body {
 
 .subtitulo{
     color: white;
-    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-size: 16pt;
     font-weight: 300;
@@ -47,7 +46,6 @@ body {
 #button{
     background-image: linear-gradient(to right, #A259FF, #6C3EFF);
     color: white;
-    font-family: "Poppins", sans-serif;
     text-decoration: none;
     font-style: normal;
     font-weight: 500;

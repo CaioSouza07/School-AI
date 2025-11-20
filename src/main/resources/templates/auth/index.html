@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" th:href="@{/images/Logo-School-AI.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/auth/style.css}">
+    <title>Entrar School AI</title>
+</head>
+<body>
+    <div class="container">
+        <div class="menu-esquerdo">
+            <h1 id="titulo-school">School AI</h1>
+            <div class="conteudo">
+                <p id="texto"><b>Estude</b> com praticidade: resumos, exercícios, organização e revisão.</p>
+            </div>
+        </div>
+        <div class="menu-direito">
+            <h3 id="titulo-inicio">Início</h3>
+            <div class="botoes" >
+                <a class="button" href="auth/login">Entrar</a>
+                <a class="button" href="">Cadastrar</a>
+            </div>
+            <img id="logo" th:src="@{/images/Logo-School-AI.png}" alt="Logo-School-AI">
+        </div>
+    </div>
+</body>
+</html>

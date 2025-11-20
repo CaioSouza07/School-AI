@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #2A0055, black );
+    font-family: "Poppins", sans-serif;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-esquerdo{
+    flex: 1;
+    padding: 20px;
+    /* border: 5px solid red; */
+}
+
+.menu-direito{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    width: 30vw;
+    background-color: black;
+    /* padding: 20px; */
+    /* border: 5px solid green; */
+    height: 100vh;
+}
+
+#titulo-school{
+    width: fit-content;
+    background-image: linear-gradient(to right, #A259FF, #6C3EFF);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: black;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19pt;
+}
+
+#titulo-inicio{
+    color: white;
+    margin: 1vw;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20pt;
+}
+
+.botoes{
+    margin-bottom: 18vw;
+}
+
+.button{
+    display: inline-block;
+    width: 12vw;
+    margin: 5px;
+    background-image: linear-gradient(to right, #A259FF, #6C3EFF);
+    color: white;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12pt;
+    padding: 6px;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.conteudo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+#texto{
+    color: white;
+    margin: 30vh 10vh;
+    font-size: 28pt;
+}
+
+#logo{
+    margin: 3vw;
+    width: 3vw;
+}
+
+
