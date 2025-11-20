@@ -28,12 +28,4 @@ public class AuthController {
         return "auth/cadastro";
     }
 
-    @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
-    public String cadastro(@Valid Usuario usuario, BindingResult resultado){
-        if(resultado.hasErrors()){
-            return "redirect:/cadastro";
-        }
-        return "";
-    }
-
 }
