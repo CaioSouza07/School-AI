@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class IniciaController {
+public class InicialController {
 
     @GetMapping
     public String inicial(){

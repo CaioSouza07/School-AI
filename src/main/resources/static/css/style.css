@@ -1,3 +1,58 @@
-h1{
-    color: red;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #2A2A2A, black );
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+#logo{
+    width: 28vh;
+}
+
+
+#titulo {
+  background-image: linear-gradient(to right, #A259FF, #6C3EFF);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 71pt;
+}
+
+.subtitulo{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-size: 16pt;
+    font-weight: 300;
+}
+
+#button{
+    background-image: linear-gradient(to right, #A259FF, #6C3EFF);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15pt;
+    padding: 10px;
+    border-radius: 50px;
+    margin-top: 18vh;
 }
