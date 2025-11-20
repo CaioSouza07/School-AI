@@ -1,9 +1,11 @@
 package com.caio.school_ai.controller;
 
+import com.caio.school_ai.config.security.TokenService;
 import com.caio.school_ai.model.dto.CadastroDTO;
 import com.caio.school_ai.model.dto.LoginDTO;
+import com.caio.school_ai.model.dto.LoginResponseDTO;
 import com.caio.school_ai.model.entity.Usuario;
-import com.caio.school_ai.model.service.CadastroService;
+import com.caio.school_ai.service.CadastroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class AuthController {
     @Autowired
     private CadastroService cadastroService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @GetMapping
     public String auth(){
         return "auth/index";
@@ -38,7 +43,9 @@ public class AuthController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.geradorToken((Usuario) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @GetMapping("/cadastro")

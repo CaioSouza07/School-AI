@@ -1,8 +1,8 @@
-package com.caio.school_ai.model.service;
+package com.caio.school_ai.service;
 
 import com.caio.school_ai.model.dto.CadastroDTO;
 import com.caio.school_ai.model.entity.Usuario;
-import com.caio.school_ai.model.repository.UsuarioRepository;
+import com.caio.school_ai.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

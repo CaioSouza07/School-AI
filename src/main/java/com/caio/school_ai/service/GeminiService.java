@@ -1,4 +1,4 @@
-package com.caio.school_ai.model.service;
+package com.caio.school_ai.service;
 
 import com.caio.school_ai.util.CleanJSON;
 import org.springframework.beans.factory.annotation.Value;

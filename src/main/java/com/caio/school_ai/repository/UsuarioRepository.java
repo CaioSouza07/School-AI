@@ -1,4 +1,4 @@
-package com.caio.school_ai.model.repository;
+package com.caio.school_ai.repository;
 
 import com.caio.school_ai.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;

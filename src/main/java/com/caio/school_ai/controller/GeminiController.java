@@ -1,6 +1,6 @@
 package com.caio.school_ai.controller;
 
-import com.caio.school_ai.model.service.GeminiService;
+import com.caio.school_ai.service.GeminiService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
