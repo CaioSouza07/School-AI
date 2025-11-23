@@ -1,17 +1,11 @@
 package com.caio.school_ai.controller;
 
-import com.caio.school_ai.config.security.TokenService;
 import com.caio.school_ai.model.dto.CadastroDTO;
-import com.caio.school_ai.model.dto.LoginDTO;
-import com.caio.school_ai.model.dto.LoginResponseDTO;
 import com.caio.school_ai.model.entity.Usuario;
 import com.caio.school_ai.service.CadastroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,51 +14,40 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private CadastroService cadastroService;
 
     @Autowired
-    private TokenService tokenService;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
-    public String auth(){
+    public String auth() {
         return "auth/index";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "auth/login";
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginDTO dados){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.geradorToken((Usuario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
-    }
-
     @GetMapping("/cadastro")
-    public String cadastro(){
+    public String cadastro() {
         return "auth/cadastro";
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity cadastro(@RequestBody @Valid CadastroDTO dados){
-        if(this.cadastroService.validarCadastro(dados)) return ResponseEntity.badRequest().build();
+    public String cadastro(@Valid CadastroDTO dados) {
+        if (cadastroService.validarCadastro(dados)) {
+            return "redirect:/auth/cadastro?erro=true";
+        }
 
-        String senhaCriptografada = new BCryptPasswordEncoder().encode(dados.senha());
+        Usuario usuario = new Usuario(
+                dados.nome(),
+                dados.email(),
+                passwordEncoder.encode(dados.senha())
+        );
 
-        Usuario usuario = new Usuario(dados.nome(), dados.email(), senhaCriptografada);
+        cadastroService.salvar(usuario);
 
-        this.cadastroService.salvar(usuario);
-
-        return ResponseEntity.ok().build();
-
+        return "redirect:/auth/login?cadastro=ok";
     }
-
 }
