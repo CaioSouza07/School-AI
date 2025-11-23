@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" th:href="@{/images/Logo-School-AI.ico}" type="image/x-icon">
-<!--    <link rel="stylesheet" th:href="@{/css/auth/cadastro.css}">-->
+    <link rel="stylesheet" th:href="@{/css/auth/cadastro.css}">
     <title>Cadastrar</title>
 </head>
 <body>
@@ -12,9 +12,14 @@
         <h3 class="titulo">Cadastrar</h3>
 
         <form method="post" action="/auth/cadastro">
-            <div id="alerta" th:if="${param.error}" class="alerta-erro">
-                <span>Usuário ou senha incorretos!</span>
-                <button class="fechar-alerta" onclick="fecharAlerta()">×</button>
+            <div id="alerta-email" th:if="${param.erroEmail}" class="alerta-erro">
+                <span>Já existe um usuário com esse e-mail!</span>
+                <button class="fechar-alerta" onclick="fecharAlertaEmail()">×</button>
+            </div>
+
+            <div id="alerta-senha" th:if="${param.erroSenha}" class="alerta-erro">
+                <span>As senhas não conferem!</span>
+                <button class="fechar-alerta" onclick="fecharAlertaSenha()">×</button>
             </div>
 
             <p>Nome</p>
@@ -29,7 +34,7 @@
             <p>Confirmação de senha</p>
             <input name="confirmacaoSenha" type="password" placeholder="Confirme sua senha"  required>
 
-            <button type="submit" >Entrar</button>
+            <button type="submit" >Cadastrar</button>
 
         </form>
 
@@ -40,6 +45,13 @@
     </div>
 
 </div>
-
+<script>
+    function fecharAlertaSenha() {
+        document.getElementById("alerta-senha").style.display = "none";
+    }
+    function fecharAlertaEmail() {
+        document.getElementById("alerta-email").style.display = "none";
+    }
+</script>
 </body>
 </html>
