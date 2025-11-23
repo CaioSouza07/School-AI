@@ -4,5 +4,5 @@ import com.caio.school_ai.model.entity.Agrupamento;
 
 import java.util.List;
 
-public record PastaDTO(Long id, String nome, Long usuarioId, List<Agrupamento> listaAgrupaId) {
+public record PastaDTO(Long id, String nome, Long usuarioId, List<AgrupamentoDTO> listaAgrupamentos) {
 }
