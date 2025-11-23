@@ -6,6 +6,8 @@ import com.caio.school_ai.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class CadastroService {
 
@@ -13,11 +15,14 @@ public class CadastroService {
     UsuarioRepository usuarioRepository;
 
     public boolean validarCadastro(CadastroDTO dados){
-        if(this.usuarioRepository.findByEmail(dados.email()) != null){
-            return true;
-        }else{
-            return false;
-        }
+        return this.usuarioRepository.findByEmail(dados.email()) != null;
+    }
+
+    public boolean validarSenha(CadastroDTO dados){
+        System.out.println(dados.senha());
+        System.out.println(dados.confirmacaoSenha());
+        System.out.println(Objects.equals(dados.senha(), dados.confirmacaoSenha()));
+        return !Objects.equals(dados.senha(), dados.confirmacaoSenha());
     }
 
     public void salvar(Usuario usuario){

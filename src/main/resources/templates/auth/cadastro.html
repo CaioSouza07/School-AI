@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="icon" th:href="@{/images/Logo-School-AI.ico}" type="image/x-icon">
+<!--    <link rel="stylesheet" th:href="@{/css/auth/cadastro.css}">-->
+    <title>Cadastrar</title>
 </head>
 <body>
-  <h1>cadastro</h1>
+<div class="container">
+    <div class="menu-central">
+        <h3 class="titulo">Cadastrar</h3>
+
+        <form method="post" action="/auth/cadastro">
+            <div id="alerta" th:if="${param.error}" class="alerta-erro">
+                <span>Usuário ou senha incorretos!</span>
+                <button class="fechar-alerta" onclick="fecharAlerta()">×</button>
+            </div>
+
+            <p>Nome</p>
+            <input name="nome" type="text" placeholder="Digite seu nome de usuário" required>
+
+            <p>E-mail</p>
+            <input name="email" type="text" placeholder="Digite seu e-mail" required>
+
+            <p>Senha</p>
+            <input name="senha" type="password" placeholder="Digite sua senha"  required>
+
+            <p>Confirmação de senha</p>
+            <input name="confirmacaoSenha" type="password" placeholder="Confirme sua senha"  required>
+
+            <button type="submit" >Entrar</button>
+
+        </form>
+
+        <img id="logo" th:src="@{/images/Logo-School-AI.png}" alt="Logo School AI">
+        <h1 id="titulo-school">School AI</h1>
+
+
+    </div>
+
+</div>
+
 </body>
 </html>

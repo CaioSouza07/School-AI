@@ -5,6 +5,9 @@ import com.caio.school_ai.model.entity.Usuario;
 import com.caio.school_ai.service.CadastroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +40,10 @@ public class AuthController {
     @PostMapping("/cadastro")
     public String cadastro(@Valid CadastroDTO dados) {
         if (cadastroService.validarCadastro(dados)) {
-            return "redirect:/auth/cadastro?erro=true";
+            return "redirect:/auth/cadastro?erroEmail=true";
+        }
+        if (cadastroService.validarSenha(dados)){
+            return "redirect:/auth/cadastro?erroSenha=true";
         }
 
         Usuario usuario = new Usuario(
@@ -48,6 +54,14 @@ public class AuthController {
 
         cadastroService.salvar(usuario);
 
-        return "redirect:/auth/login?cadastro=ok";
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                usuario,
+                null,
+                usuario.getAuthorities()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/";
     }
 }
