@@ -3,12 +3,17 @@ package com.caio.school_ai.controller;
 import com.caio.school_ai.model.dto.CadastroDTO;
 import com.caio.school_ai.model.entity.Usuario;
 import com.caio.school_ai.service.CadastroService;
+import jakarta.servlet.http.HttpServletRequest; // Importante
+import jakarta.servlet.http.HttpServletResponse; // Importante
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext; // Importante
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository; // Importante
+import org.springframework.security.web.context.SecurityContextRepository; // Importante
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +26,8 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
     @GetMapping
     public String auth() {
@@ -38,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro")
-    public String cadastro(@Valid CadastroDTO dados) {
+    public String cadastro(@Valid CadastroDTO dados, HttpServletRequest request, HttpServletResponse response) {
         if (cadastroService.validarCadastro(dados)) {
             return "redirect:/auth/cadastro?erroEmail=true";
         }
@@ -60,7 +67,11 @@ public class AuthController {
                 usuario.getAuthorities()
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        securityContextRepository.saveContext(context, request, response);
 
         return "redirect:/";
     }
