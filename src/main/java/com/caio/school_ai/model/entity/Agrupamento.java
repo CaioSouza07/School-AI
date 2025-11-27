@@ -3,6 +3,7 @@ package com.caio.school_ai.model.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Agrupamento {
@@ -17,12 +18,12 @@ public class Agrupamento {
     private Pasta pasta;
 
     @OneToMany(mappedBy = "agrupamento")
-    private List<Secao> listaSecoes;
+    private Set<Secao> listaSecoes;
 
     public Agrupamento() {
     }
 
-    public Agrupamento(Long id, String nome, Pasta pasta, List<Secao> listaSecoes) {
+    public Agrupamento(Long id, String nome, Pasta pasta, Set<Secao> listaSecoes) {
         this.id = id;
         this.nome = nome;
         this.pasta = pasta;
@@ -53,11 +54,11 @@ public class Agrupamento {
         this.pasta = pasta;
     }
 
-    public List<Secao> getListaSecoes() {
+    public Set<Secao> getListaSecoes() {
         return listaSecoes;
     }
 
-    public void setListaSecoes(List<Secao> listaSecoes) {
+    public void setListaSecoes(Set<Secao> listaSecoes) {
         this.listaSecoes = listaSecoes;
     }
 }

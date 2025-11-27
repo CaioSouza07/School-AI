@@ -3,17 +3,17 @@ package com.caio.school_ai.controller;
 import com.caio.school_ai.model.dto.CadastroDTO;
 import com.caio.school_ai.model.entity.Usuario;
 import com.caio.school_ai.service.CadastroService;
-import jakarta.servlet.http.HttpServletRequest; // Importante
-import jakarta.servlet.http.HttpServletResponse; // Importante
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext; // Importante
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository; // Importante
-import org.springframework.security.web.context.SecurityContextRepository; // Importante
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,6 +73,6 @@ public class AuthController {
 
         securityContextRepository.saveContext(context, request, response);
 
-        return "redirect:/";
+        return "redirect:/estudos";
     }
 }

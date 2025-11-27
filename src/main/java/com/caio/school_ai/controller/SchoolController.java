@@ -17,11 +17,11 @@ public class SchoolController {
     private PastaService pastaService;
 
     @GetMapping
-    public String index(@AuthenticationPrincipal Usuario usuario){
-//        var mv = new ModelAndView("estudos/index");
-//        var listaPastas = pastaService.findAllPastasHierarquiaByUsuario(usuario.getId());
-//        mv.addObject("pastas", listaPastas);
-        return "estudos/index";
+    public ModelAndView index(@AuthenticationPrincipal Usuario usuario){
+        var mv = new ModelAndView("estudos/index");
+        var listaPastas = pastaService.findAllPastasHierarquiaByUsuario(usuario.getId());
+        mv.addObject("pastas", listaPastas);
+        return mv;
     }
 
 }

@@ -3,6 +3,7 @@ package com.caio.school_ai.model.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Secao {
@@ -18,13 +19,13 @@ public class Secao {
     private Agrupamento agrupamento;
 
     @OneToMany(mappedBy = "secao")
-    private List<Estudo> listaEstudos;
+    private Set<Estudo> listaEstudos;
 
 
     public Secao() {
     }
 
-    public Secao(Long id, String nome, String cor, Agrupamento agrupamento, List<Estudo> listaEstudos) {
+    public Secao(Long id, String nome, String cor, Agrupamento agrupamento, Set<Estudo> listaEstudos) {
         this.id = id;
         this.nome = nome;
         this.cor = cor;
@@ -64,11 +65,11 @@ public class Secao {
         this.agrupamento = agrupamento;
     }
 
-    public List<Estudo> getListaEstudos() {
+    public Set<Estudo> getListaEstudos() {
         return listaEstudos;
     }
 
-    public void setListaEstudos(List<Estudo> listaEstudos) {
+    public void setListaEstudos(Set<Estudo> listaEstudos) {
         this.listaEstudos = listaEstudos;
     }
 }

@@ -1,7 +1,5 @@
 package com.caio.school_ai.config.security;
 
-import com.caio.school_ai.service.LoginService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +23,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")  // onde o POST vai
-                        .defaultSuccessUrl("/", true)       // pra onde redireciona depois do login
+                        .defaultSuccessUrl("/estudos", true)       // pra onde redireciona depois do login
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
