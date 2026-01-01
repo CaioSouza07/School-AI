@@ -37,10 +37,14 @@ public class UsuarioService {
             Path caminho = pastaAvatares.resolve(nomeArquivo);
 
             Files.write(caminho, file.getBytes());
-
-            usuario.setAvatarUrl("uploads/avatars/" + nomeArquivo);
+            String avatarAntigo = usuario.getAvatarUrl();
+            usuario.setAvatarUrl("avatars/" + nomeArquivo);
 
             usuarioRepository.save(usuario);
+
+            if (avatarAntigo != null) {
+                Files.deleteIfExists(Paths.get(avatarAntigo));
+            }
 
         } catch (IOException e) {
             throw new RuntimeException("Erro ao salvar usuario: " + e);

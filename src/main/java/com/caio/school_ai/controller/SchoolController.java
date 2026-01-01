@@ -21,6 +21,7 @@ public class SchoolController {
         var mv = new ModelAndView("estudos/index");
         var listaPastas = pastaService.findAllPastasHierarquiaByUsuario(usuario.getId());
         mv.addObject("pastas", listaPastas);
+        mv.addObject("usuario", usuario);
         return mv;
     }
 

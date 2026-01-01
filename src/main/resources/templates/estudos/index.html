@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" th:href="@{/images/Logo-School-AI.ico}" type="image/x-icon">
-<!--    <link rel="stylesheet" th:href="@{/css/estudos/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/estudos/style.css}">
     <title>Estudos School AI</title>
 </head>
 <body>
-    div
+<div class="container">
+
+    <div class="menu-lateral">
+        <div class="menu-header">
+            <img id="logo" th:src="@{/images/Logo-School-AI.png}" alt="Logo-School-AI">
+            <img id= "fechar-menu" th:src="@{images/fechar-menu.png}" alt="fechar-menu">
+        </div>
+        <div class="menu-botoes">
+            <button class="botao-menu" id="botao-pasta">
+                <img th:src="@{images/icone-pasta.png}" alt="icone-pasta">
+                <p>Criar pasta</p>
+            </button>
+            <button class="botao-menu" id="botao-agrupamento" disabled>
+                <img th:src="@{images/icone-agrup.png}" alt="icone-agrupamento">
+                <p>Criar agrupamento</p>
+            </button>
+            <button class="botao-menu" id="botao-secao" disabled>
+                <img th:src="@{images/icone-secao.png}" alt="icone-secao">
+                <p>Criar seção</p>
+            </button>
+        </div>
+        <div class="linha-divisoria"></div>
+        <div class="menu-pastas">
+            <div th:each="pasta : ${pastas}" class="pastas">
+                <p class="pasta-nome" th:text="${pasta.nome}"></p>
+            </div>
+        </div>
+        <div class="linha-divisoria"></div>
+        <div class="menu-usuario">
+            <img class="avatar" th:src="@{'/uploads/' + ${usuario.avatarUrl}}" alt="Avatar do usuário">
+            <p th:text="${usuario.nome}">Nome do usuário</p>
+        </div>
+    </div>
+    <div class="area-estudos">
+        <div class="menu-topo">
+            <p>School AI</p>
+        </div>
+        <div class="estudos">
+            <div class="bem-vindo">
+                <p th:text="'Olá, ' + ${usuario.nome} + '!'">Olá!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/estudos/script.js}"></script>
 </body>
 </html>

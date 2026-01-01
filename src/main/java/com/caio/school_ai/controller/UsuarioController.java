@@ -18,7 +18,7 @@ public class UsuarioController {
 
     @GetMapping("/perfil")
     public ModelAndView perfil(){
-        var mv = new ModelAndView("usuarios/perfil");
+        var mv = new ModelAndView("usuarios/index");
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         mv.addObject("usuario", usuario);
         return mv;
@@ -29,6 +29,6 @@ public class UsuarioController {
             @RequestParam("file")MultipartFile file
             ){
         usuarioService.atualizarAvatar(file);
-        return "redirect:/perfil";
+        return "redirect:/usuarios/perfil";
     }
 }
